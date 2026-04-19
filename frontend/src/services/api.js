@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 // Default to Vite proxy in development to avoid CORS and dynamic port issues.
-const API_URL = import.meta.env.VITE_API_URL || '/api';
+const API_URL = import.meta.env.VITE_API_URL || (import.meta.env.DEV ? '/api' : '/_/backend/api');
 const API_TIMEOUT = parseInt(import.meta.env.VITE_API_TIMEOUT || '30000');
 
 const apiClient = axios.create({

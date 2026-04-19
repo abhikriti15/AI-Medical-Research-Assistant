@@ -51,6 +51,21 @@ const initializeServices = async () => {
   }
 };
 
+let servicesInitializationPromise;
+
+const ensureServicesInitialized = () => {
+  if (!servicesInitializationPromise) {
+    servicesInitializationPromise = initializeServices();
+  }
+  return servicesInitializationPromise;
+};
+
+// Ensure dependencies are ready before handling API requests in serverless mode.
+app.use(async (req, res, next) => {
+  await ensureServicesInitialized();
+  next();
+});
+
 // Routes
 app.use('/api', apiRoutes);
 
@@ -66,7 +81,7 @@ const PORT = process.env.PORT || 5000;
 
 const startServer = async () => {
   try {
-    await initializeServices();
+    await ensureServicesInitialized();
     
     app.listen(PORT, () => {
       logger.info(`Backend running on port ${PORT}`);
@@ -78,7 +93,15 @@ const startServer = async () => {
   }
 };
 
-startServer();
+// Start the HTTP listener only for direct local runs.
+if (require.main === module) {
+  startServer();
+} else {
+  // Warm initialization for serverless cold starts.
+  ensureServicesInitialized();
+}
+
+module.exports = app;
 
 // Graceful shutdown
 process.on('SIGTERM', () => {
