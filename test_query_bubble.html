@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Query Bubble Test</title>
+    <style>
+        body {
+            background: #0f172a;
+            color: white;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            padding: 20px;
+        }
+        
+        .test-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        h1 {
+            color: #ffffff;
+            margin-bottom: 30px;
+        }
+        
+        /* Original problematic style */
+        .problem-bubble {
+            background: #1e293b;
+            color: #ffffff;
+            padding: 12px 16px;
+            border-radius: 12px;
+            border: 1px solid #334155;
+            max-width: 90%;
+            word-wrap: break-word;
+            margin: 20px 0;
+        }
+        
+        /* Fixed style */
+        .fixed-bubble {
+            background: #1e293b;
+            color: #ffffff;
+            padding: 12px 16px;
+            border-radius: 12px;
+            border: 1px solid #334155;
+            max-width: 600px;
+            width: fit-content;
+            word-wrap: break-word;
+            word-break: normal;
+            overflow-wrap: break-word;
+            white-space: normal;
+            hyphens: auto;
+            margin: 20px auto;
+        }
+        
+        .fixed-bubble p {
+            margin: 0;
+            font-size: 15px;
+            line-height: 1.5;
+        }
+        
+        .example-queries {
+            margin-top: 40px;
+        }
+        
+        .query-example {
+            margin: 10px 0;
+            padding: 10px;
+            background: #1e293b;
+            border-radius: 8px;
+        }
+        
+        .label {
+            font-weight: bold;
+            color: #94a3b8;
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1>Query Bubble UI Alignment Test</h1>
+        
+        <div class="label">Problematic (old style):</div>
+        <div class="problem-bubble">
+            <p>This is a very long query about varicocele treatment options for male infertility that should wrap properly but currently breaks awkwardly across multiple lines</p>
+        </div>
+        
+        <div class="label">Fixed (new style):</div>
+        <div class="fixed-bubble">
+            <p>This is a very long query about varicocele treatment options for male infertility that should wrap properly but currently breaks awkwardly across multiple lines</p>
+        </div>
+        
+        <div class="example-queries">
+            <h2>Example Medical Queries:</h2>
+            
+            <div class="query-example">
+                <div class="label">Short query:</div>
+                <div class="fixed-bubble">
+                    <p>Diabetes treatment</p>
+                </div>
+            </div>
+            
+            <div class="query-example">
+                <div class="label">Medium query:</div>
+                <div class="fixed-bubble">
+                    <p>What are the latest clinical trials for Alzheimer's disease treatment?</p>
+                </div>
+            </div>
+            
+            <div class="query-example">
+                <div class="label">Long query:</div>
+                <div class="fixed-bubble">
+                    <p>I'm looking for research papers about the efficacy of microsurgical varicocelectomy compared to laparoscopic approaches for treating grade 3 varicoceles in adult males with infertility</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
